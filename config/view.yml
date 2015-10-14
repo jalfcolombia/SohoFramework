@@ -5,7 +5,7 @@ all:
     - charset="UTF-8"
     - http-equiv="X-UA-Compatible" content="IE=edge"
   javascript:
-    - jquery-1.11.1.min.js
+    - jquery-1.11.3.min.js
     - bootstrap.js
     - main.js
   stylesheet:
