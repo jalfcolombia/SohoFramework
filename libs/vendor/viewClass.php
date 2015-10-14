@@ -55,18 +55,45 @@ namespace mvc\view {
       }
 
       if (isset($includes[$module][$action]['meta'])) {
+        sessionClass::getInstance()->setFlash('meta' . $module . '.' . $action, true);
         foreach ($includes[$module][$action]['meta'] as $include) {
-          $metas .= '<meta ' . $include . '>';
+          if (is_array($include) === true and sessionClass::getInstance()->hasFlash('meta' . $include[0]) === false) {
+            sessionClass::getInstance()->setFlash('meta' . $include[0], true);
+            $entity = explode('.', $include[0]);
+            $metas = self::genMetaLink($includes, $entity, $metas, 'meta');
+          } else if (is_array($include) === false) {
+            $metas .= '<meta ' . $include . '>';
+          }
         }
       }
 
       if (isset($includes[$module][$action]['link'])) {
+        sessionClass::getInstance()->setFlash('link' . $module . '.' . $action, true);
         foreach ($includes[$module][$action]['link'] as $include) {
-          $metas .= '<link ' . $include . '>';
+          if (is_array($include) === true and sessionClass::getInstance()->hasFlash('link' . $include[0]) === false) {
+            sessionClass::getInstance()->setFlash('link' . $include[0], true);
+            $entity = explode('.', $include[0]);
+            $metas = self::genMetaLink($includes, $entity, $metas, 'link');
+          } else if (is_array($include) === false) {
+            $metas .= '<link ' . $include . '>';
+          }
         }
       }
 
       return $metas;
+    }
+
+    static private function genMetaLink($includes, $entity, $metaLink, $label) {
+      foreach ($includes[$entity[0]][$entity[1]][$label] as $include) {
+        if (is_array($include) === true and sessionClass::getInstance()->hasFlash($label . $include[0]) === false) {
+          sessionClass::getInstance()->setFlash($label . $include[0], true);
+          $entity2 = explode('.', $include[0]);
+          $metaLink = self::genMetaLink($includes, $entity2, $metaLink, $label);
+        } else if (is_array($include) === false) {
+          $metaLink .= '<' . $label . ' ' . $include . '>';
+        }
+      }
+      return $metaLink;
     }
 
     static public function genStylesheet() {
@@ -78,7 +105,27 @@ namespace mvc\view {
         $stylesheet .= '<link rel="stylesheet" href="' . configClass::getUrlBase() . 'css/' . $include . '">';
       }
       if (isset($includes[$module][$action]['stylesheet'])) {
+        sessionClass::getInstance()->setFlash('css' . $module . '.' . $action, true);
         foreach ($includes[$module][$action]['stylesheet'] as $include) {
+          if (is_array($include) === true and sessionClass::getInstance()->hasFlash('css' . $include[0]) === false) {
+            sessionClass::getInstance()->setFlash('css' . $include[0], true);
+            $entity = explode('.', $include[0]);
+            $stylesheet = self::genStylesheetLink($includes, $entity, $stylesheet);
+          } else if (is_array($include) === false) {
+            $stylesheet .= '<link rel="stylesheet" href="' . configClass::getUrlBase() . 'css/' . $include . '">';
+          }
+        }
+      }
+      return $stylesheet;
+    }
+
+    static private function genStylesheetLink($includes, $entity, $stylesheet) {
+      foreach ($includes[$entity[0]][$entity[1]]['stylesheet'] as $include) {
+        if (is_array($include) === true and sessionClass::getInstance()->hasFlash('css' . $include[0]) === false) {
+          sessionClass::getInstance()->setFlash('css' . $include[0], true);
+          $entity2 = explode('.', $include[0]);
+          $stylesheet = self::genStylesheetLink($includes, $entity2, $stylesheet);
+        } else if (is_array($include) === false) {
           $stylesheet .= '<link rel="stylesheet" href="' . configClass::getUrlBase() . 'css/' . $include . '">';
         }
       }
@@ -94,7 +141,27 @@ namespace mvc\view {
         $javascript .= '<script src="' . configClass::getUrlBase() . 'js/' . $include . '"></script>';
       }
       if (isset($includes[$module][$action]['javascript'])) {
+        sessionClass::getInstance()->setFlash('js' . $module . '.' . $action, true);
         foreach ($includes[$module][$action]['javascript'] as $include) {
+          if (is_array($include) === true and sessionClass::getInstance()->hasFlash('js' . $include[0]) === false) {
+            sessionClass::getInstance()->setFlash('js' . $include[0], true);
+            $entity = explode('.', $include[0]);
+            $javascript = self::genJavascriptLink($includes, $entity, $javascript);
+          } else if (is_array($include) === false) {
+            $javascript .= '<script src="' . configClass::getUrlBase() . 'js/' . $include . '"></script>';
+          }
+        }
+      }
+      return $javascript;
+    }
+
+    static private function genJavascriptLink($includes, $entity, $javascript) {
+      foreach ($includes[$entity[0]][$entity[1]]['javascript'] as $include) {
+        if (is_array($include) === true and sessionClass::getInstance()->hasFlash('js' . $include[0]) === false) {
+          sessionClass::getInstance()->setFlash('js' . $include[0], true);
+          $entity2 = explode('.', $include[0]);
+          $javascript = self::genJavascriptLink($includes, $entity2, $stylesheet);
+        } else if (is_array($include) === false) {
           $javascript .= '<script src="' . configClass::getUrlBase() . 'js/' . $include . '"></script>';
         }
       }

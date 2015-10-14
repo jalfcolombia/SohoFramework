@@ -59,7 +59,7 @@ namespace mvc\request {
      */
     public function addParamGet($param) {
       if (is_array($param)) {
-        $this->get = array_merge($this->get, $param);
+        $this->get = array_merge((is_array($this->get) === true) ? $this->get : array(), $param);
       }
     }
 
