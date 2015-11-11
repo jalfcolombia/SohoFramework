@@ -1,0 +1,43 @@
+schema:
+  bitacora:
+    name:             bitacora
+    columns:
+      id:         { name: id, notnull: true, type: integer, unique: true, sequence: bitacora_id_seq }
+      accion:         { notnull: true, type: string, length: 80 }
+      usuario_id:     { notnull: true, type: integer }
+      observacion:    { notnull: true, type: string, length: 1024 }
+      tabla:          { type: string, length: 80 }
+      registro:       { type: integer }
+      created_at:     { type: dateTime }
+  credencial:
+    columns:
+      id:             { notnull: true, type: integer, unique: true, sequence: credencial_id_seq }
+      nombre:         { notnull: true, type: string, length: 20 }
+      usuario_id:     { notnull: true, type: integer }
+      created_at:     { type: dateTime }
+      updated_at:     { type: dateTime }
+      deleted_at:     { type: dateTime }
+  recordar_me:
+    columns:
+      id:             { notnull: true, type: integer, unique: true, sequence: recordar_me_id_seq }
+      usuario_id:     { notnull: true, type: integer, unique: true }
+      ip_address:     { notnull: true, type: string, length: 50 }
+      hash_cookie:    { notnull: true, type: string, length: 32 }
+      created_at:     { type: dateTime }
+  usuario:
+    name:             usuario
+    columns:
+      id:             { notnull: true, type: integer, unique: true, sequence: usuario_id_seq }
+      user_name:      { notnull: true, type: string, length: 80, unique: true }
+      password:       { notnull: true, type: string, length: 32, encrypted: md5 }
+      actived:        { notnull: true, type: boolean, default: t }
+      last_login_at:  { type: dateTime, default: {value: NOW, format: Y-m-d H:i:s} }
+      created_at:     { type: dateTime }
+      updated_at:     { type: dateTime }
+      deleted_at:     { type: dateTime }
+  usuario_credencial:
+    columns:
+      id:             { notnull: true, type: integer, unique: true, sequence: usuario_credencial_id_seq }
+      usuario_id:     { notnull: true, type: integer }
+      credencial_id:  { notnull: true, type: integer }
+      created_at:     { type: dateTime }

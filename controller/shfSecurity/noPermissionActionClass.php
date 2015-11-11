@@ -1,19 +1,21 @@
 <?php
 
-use mvc\interfaces\controllerActionInterface;
-use mvc\controller\controllerClass;
-use mvc\config\myConfigClass as config;
-use mvc\request\requestClass as request;
-use mvc\routing\routingClass as routing;
-use mvc\session\sessionClass as session;
-use mvc\i18n\i18nClass as i18n;
+use soho\interfaces\shControllerAction as controllerActionInterface;
+use soho\shController as controller;
+use soho\myConfig as config;
+use soho\shRequest as request;
+use soho\shRouting as routing;
+use soho\shSession as session;
+use hook\log\logHook as log;
+use hook\security\securityHook as security;
+use soho\shI18n as i18n;
 
 /**
  * Description of noPermissionActionClass
  *
  * @author Julian Lasso <ingeniero.julianlasso@gmail.com>
  */
-class noPermissionActionClass extends controllerClass implements controllerActionInterface {
+class noPermissionActionClass extends controller implements controllerActionInterface {
 
   public function execute() {
     try {

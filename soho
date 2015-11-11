@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+
+$GLOBALS['task'] = true;
+$GLOBALS['argv'] = $argv;
+
+require_once 'config/projectConfiguration.class.php';
+require_once 'lib/vendor/soho/helper/colorizeHelper.php';
+use soho\projectConfiguration;
+
+try {
+  projectConfiguration::getInstance()->autoLoad();
+  soho\shDispatch::getInstance()->main();
+} catch (ErrorException $exc) {
+  echo $exc->getMessage() . "\n";
+  var_dump($exc->getTrace());
+}

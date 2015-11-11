@@ -6,10 +6,10 @@ all:
     - http-equiv="X-UA-Compatible" content="IE=edge"
   javascript:
     - jquery-1.11.3.min.js
-    - bootstrap.js
+    - bootstrap.min.js
     - main.js
   stylesheet:
-    - bootstrap.css
+    - bootstrap.min.css
     - main.css
     - font-awesome.min.css
 

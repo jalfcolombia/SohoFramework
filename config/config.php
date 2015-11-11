@@ -1,18 +1,21 @@
 <?php
 
-use mvc\config\myConfigClass as config;
-use mvc\session\sessionClass as session;
+use soho\myConfig as config;
+# use mvc\session\sessionClass as session;
+
+config::setPathAbsolute('/Applications/MAMP/htdocs/SohoFramework/');
+config::setUrlBase('http://sohoframework.com/');
 
 config::setRowGrid(10);
 
 config::setDbHost('localhost');
-config::setDbDriver('pgsql'); // mysql
-config::setDbName('soho_framework');
-config::setDbPort(5432); // 3306
-config::setDbUser('postgres');
-config::setDbPassword('sqlx32');
-// Esto solo es necesario en caso de necesitar un socket para la DB
-config::setDbUnixSocket(null); ///tmp/mysql.sock
+config::setDbDriver('mysql'); // mysql
+config::setDbName('sara');
+config::setDbPort(3306); // 3306
+config::setDbUser('root');
+config::setDbPassword('root');
+# Esto solo es necesario en caso de necesitar un socket para la DB
+config::setDbUnixSocket(null); # /tmp/mysql.sock
 
 if (config::getDbUnixSocket() !== null) {
   config::setDbDsn(
@@ -29,16 +32,15 @@ if (config::getDbUnixSocket() !== null) {
   );
 }
 
-config::setPathAbsolute('/Applications/MAMP/htdocs/SohoFramework/');
-config::setUrlBase('http://sohoframework.com/');
-
 config::setScope('dev'); // prod
 
-if (session::getInstance()->hasDefaultCulture() === false) {
-  config::setDefaultCulture('es');
-} else {
-  config::setDefaultCulture(session::getInstance()->getDefaultCulture());
-}
+config::setDefaultCulture('es');
+
+//if (session::getInstance()->hasDefaultCulture() === false) {
+//  config::setDefaultCulture('es');
+//} else {
+//  config::setDefaultCulture(session::getInstance()->getDefaultCulture());
+//}
 
 config::setIndexFile('index.php');
 

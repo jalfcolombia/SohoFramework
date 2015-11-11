@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'soho';
+  src:url('../fonts/soho.eot?5wexsu');
+  src:url('../fonts/soho.eot?5wexsu#iefix') format('embedded-opentype'),
+    url('../fonts/soho.ttf?5wexsu') format('truetype'),
+    url('../fonts/soho.woff?5wexsu') format('woff'),
+    url('../fonts/soho.svg?5wexsu#soho') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="shicon-"], [class*=" shicon-"] {
+  font-family: 'soho';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Enable Ligatures ================ */
+  letter-spacing: 0;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  -ms-font-feature-settings: "liga" 1;
+  -o-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.shicon-bug:before {
+  content: "\e900";
+}
+.shicon-warning:before {
+  content: "\e901";
+}
+
+body {
+  font-family: verdana;
+}
+
+/*@media screen and (min-width: 1200px) {*/
+body {
+  padding: 20px;
+}
+
+.error {
+  border: #ebccd1 solid 1px;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+.warning {
+  border: #faebcc solid 1px;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+}
+
+.warning > div, .error > div {
+  color: #333;
+  border-radius: 4px;
+  background-color: #f7f7f9;
+  padding: 9px 14px;
+  border: #e1e1e8 solid 1px;
+  overflow: auto;
+}
+
+h1 {
+  margin-top: 0px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+.warning > div > div > p, .error > div > div > p {
+  margin-top: 0px;
+}
+
+.warning > div > div > p:last-child, .error > div > div > p:last-child {
+  margin-bottom: 0px;
+}
+
+pre {
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  border: #e1e1e8 solid 1px;
+  overflow: auto;
+  padding: 15px;
+}
+/*}*/

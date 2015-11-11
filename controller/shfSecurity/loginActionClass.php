@@ -1,20 +1,21 @@
 <?php
 
-use mvc\interfaces\controllerActionInterface;
-use mvc\controller\controllerClass;
-use mvc\config\myConfigClass as config;
-use mvc\request\requestClass as request;
-use mvc\routing\routingClass as routing;
-use mvc\session\sessionClass as session;
-use hook\log\logHookClass as log;
-use mvc\i18n\i18nClass as i18n;
+use soho\interfaces\shControllerAction as controllerActionInterface;
+use soho\shController as controller;
+use soho\myConfig as config;
+use soho\shRequest as request;
+use soho\shRouting as routing;
+use soho\shSession as session;
+use hook\log\logHook as log;
+use hook\security\securityHook as security;
+use soho\shI18n as i18n;
 
 /**
  * Description of loginActionClass
  *
  * @author Julian Lasso <ingeniero.julianlasso@gmail.com>
  */
-class loginActionClass extends controllerClass implements controllerActionInterface {
+class loginActionClass extends controller implements controllerActionInterface {
 
   public function execute() {
     try {
@@ -23,7 +24,7 @@ class loginActionClass extends controllerClass implements controllerActionInterf
         $password = request::getInstance()->getPost('inputPassword');
 
         if (($objUsuario = usuarioTableClass::verifyUser($usuario, $password)) !== false) {
-          hook\security\securityHookClass::login($objUsuario);
+          security::login($objUsuario);
           if (request::getInstance()->hasPost('chkRememberMe') === true) {
             $chkRememberMe = request::getInstance()->getPost('chkRememberMe');
             $hash = md5($objUsuario[0]->id_usuario . $objUsuario[0]->usuario . date(config::getFormatTimestamp()));
@@ -37,7 +38,7 @@ class loginActionClass extends controllerClass implements controllerActionInterf
             setcookie(config::getCookieNameRememberMe(), $hash, time() + config::getCookieTime(), config::getCookiePath());
           }
           log::register('identificacion', 'NINGUNA');  
-          hook\security\securityHookClass::redirectUrl();
+          security::redirectUrl();
         } else {
           session::getInstance()->setError('Usuario y contraseña incorrectos');
           routing::getInstance()->redirect(config::getDefaultModuleSecurity(), config::getDefaultActionSecurity());

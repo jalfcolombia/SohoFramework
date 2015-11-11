@@ -1,6 +1,6 @@
-<?php use mvc\routing\routingClass as routing ?>
-<?php use mvc\view\viewClass as view ?>
-<?php use mvc\session\sessionClass as session ?>
+<?php use soho\shRouting as routing ?>
+<?php use soho\shView as view ?>
+<?php use soho\shSession as session ?>
 <div class="container container-fluid">
 
   <form class="form-signin" role="form" action="<?php echo routing::getInstance()->getUrlWeb('shfSecurity', 'login') ?>" method="POST">
